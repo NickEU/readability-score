@@ -1,6 +1,6 @@
 package readability;
 
-enum ScientificMethod {
+enum UserCmd {
     ARI,
     FK,
     SMOG,

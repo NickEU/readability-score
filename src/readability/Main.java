@@ -10,36 +10,36 @@ public class Main {
         String fileName = parseArgumentsFindFilename(args);
         String text = readTextFromFile(fileName);
         if (text != null) {
-            var analyzer = new ReadabilityAnalyzer(text);
+            var analyzer = new Analyzer(text);
             String stats = analyzer.getStats();
             System.out.println(stats);
-            ScientificMethod userChoice = getInputFromUser();
-            String analysis = analyzer.getAnalysis(userChoice);
+            UserCmd userCmd = getInputFromUser();
+            String analysis = analyzer.getResults(userCmd);
             System.out.println(analysis);
         }
     }
 
-    private static ScientificMethod getInputFromUser() {
+    private static UserCmd getInputFromUser() {
         Scanner sc = new Scanner(System.in);
-        ScientificMethod result = null;
+        UserCmd result = null;
         while (result == null) {
             System.out.print("Enter the score you want to calculate (ARI, FK, SMOG, CL, all): ");
-            String userCmd = sc.nextLine().toUpperCase();
-            switch (userCmd) {
+            String cmd = sc.nextLine().toUpperCase();
+            switch (cmd) {
                 case "ARI":
-                    result = ScientificMethod.ARI;
+                    result = UserCmd.ARI;
                     break;
                 case "FK":
-                    result = ScientificMethod.FK;
+                    result = UserCmd.FK;
                     break;
                 case "SMOG":
-                    result = ScientificMethod.SMOG;
+                    result = UserCmd.SMOG;
                     break;
                 case "CL":
-                    result = ScientificMethod.CL;
+                    result = UserCmd.CL;
                     break;
                 case "all":
-                    result = ScientificMethod.ALL;
+                    result = UserCmd.ALL;
                     break;
                 default:
                     System.out.println("Error! Not a supported method.");

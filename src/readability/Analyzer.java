@@ -5,11 +5,10 @@ import readability.methods.ColemanLiauIndex;
 import readability.methods.FleschKincaidTests;
 import readability.methods.SMOGIndex;
 
-public class ReadabilityAnalyzer {
+public class Analyzer {
     private final TextStats stats;
 
-
-    ReadabilityAnalyzer(String text) {
+    Analyzer(String text) {
         this.stats = new TextStats(text);
     }
 
@@ -21,10 +20,10 @@ public class ReadabilityAnalyzer {
                 "Polysyllables: " + stats.getPolysyllables() + "\n";
     }
 
-    public String getAnalysis(ScientificMethod userChoice) {
+    public String getResults(UserCmd userCmd) {
         String result = null;
 
-        switch (userChoice) {
+        switch (userCmd) {
             case ARI:
                 result = getVerdict(new AutomatedReadabilityIndex(stats));
                 break;
