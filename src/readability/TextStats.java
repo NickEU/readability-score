@@ -51,6 +51,14 @@ public class TextStats {
         polysyllables = (int) polySylCount.get();
     }
 
+    private String[] getTokens() {
+        return tokens;
+    }
+
+    private void setTokens(String[] tokens) {
+        this.tokens = tokens;
+    }
+
     public Integer getCharacters() {
         return characters;
     }
@@ -69,14 +77,6 @@ public class TextStats {
 
     public Integer getPolysyllables() {
         return polysyllables;
-    }
-
-    public String[] getTokens() {
-        return tokens;
-    }
-
-    public void setTokens(String[] tokens) {
-        this.tokens = tokens;
     }
 
     public String getText() {

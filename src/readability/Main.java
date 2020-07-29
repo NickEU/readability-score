@@ -44,6 +44,7 @@ public class Main {
                 default:
                     System.out.println("Error! Not a supported method.");
             }
+            System.out.println();
         }
         return result;
     }
