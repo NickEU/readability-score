@@ -40,8 +40,8 @@ public class TextStats {
         AtomicLong sylCount = new AtomicLong();
         AtomicLong polySylCount = new AtomicLong();
         Arrays.stream(getTokens())
-                .forEach(s -> {
-                    long syllablesInWord = pattern.matcher(s).results().count();
+                .forEach(word -> {
+                    long syllablesInWord = pattern.matcher(word).results().count();
                     sylCount.addAndGet(syllablesInWord);
                     if (syllablesInWord >= 3) {
                         polySylCount.getAndIncrement();
