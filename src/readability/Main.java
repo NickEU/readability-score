@@ -38,7 +38,7 @@ public class Main {
                 case "CL":
                     result = UserCmd.CL;
                     break;
-                case "all":
+                case "ALL":
                     result = UserCmd.ALL;
                     break;
                 default:

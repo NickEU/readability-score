@@ -49,13 +49,23 @@ public class Analyzer {
     }
 
     private String getVerdictFromAllMethods() {
-        return null;
-//        double avgAge
-//                = truncDouble(1.0 * (ageARI + ageCL + ageSMOG + ageFK) / 4);
-//        return verdictARI + "\n" +
-//                verdictFK + "\n" +
-//                verdictSMOG + "\n" +
-//                verdictCL + "\n\n" +
-//                "This text should be understood in average by " + avgAge + " year olds.";
+        var ari = new AutomatedReadabilityIndex(stats);
+        var fk = new FleschKincaidTests(stats);
+        var smog = new SMOGIndex(stats);
+        var cl = new ColemanLiauIndex(stats);
+
+        double avgAge
+                = Util.truncDouble(1.0
+                * (getRecommendedAge(ari) + getRecommendedAge(cl)
+                + getRecommendedAge(smog) + getRecommendedAge(fk)) / 4);
+        return getVerdict(ari) + "\n" +
+                getVerdict(fk) + "\n" +
+                getVerdict(smog) + "\n" +
+                getVerdict(cl) + "\n\n" +
+                "This text should be understood in average by " + avgAge + " year olds.";
+    }
+
+    private double getRecommendedAge(TestingMethod app) {
+        return app.getRecommendedAge();
     }
 }
