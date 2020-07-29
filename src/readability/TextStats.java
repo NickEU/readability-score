@@ -1,7 +1,12 @@
 package readability;
 
+import java.util.Arrays;
+import java.util.concurrent.atomic.AtomicLong;
+import java.util.regex.Pattern;
+
 public class TextStats {
     private final String text;
+    private String[] tokens;
     private Integer characters;
     private Integer sentences;
     private Integer words;
@@ -14,7 +19,6 @@ public class TextStats {
         countSentences();
         countWords();
         countSyllables();
-        countPolysyllables();
     }
 
     private void countCharacters() {
@@ -26,15 +30,25 @@ public class TextStats {
     }
 
     private void countWords() {
-        words = text.split("\\s+").length;
+        setTokens(text.replaceAll("[.,?!:;]", "").split("\\s+"));
+        words = getTokens().length;
     }
 
     private void countSyllables() {
-        syllables = 0;
-    }
-
-    private void countPolysyllables() {
-        polysyllables = 0;
+        String regex = "(?!e\\b)([yaeiou]+|(\\b[^\\dyaeiou\\s]+\\b)|\\b[b-df-hj-np-tv-z]+e\\b)";
+        Pattern pattern = Pattern.compile(regex, Pattern.CASE_INSENSITIVE);
+        AtomicLong sylCount = new AtomicLong();
+        AtomicLong polySylCount = new AtomicLong();
+        Arrays.stream(getTokens())
+                .forEach(s -> {
+                    long syllablesInWord = pattern.matcher(s).results().count();
+                    sylCount.addAndGet(syllablesInWord);
+                    if (syllablesInWord >= 3) {
+                        polySylCount.getAndIncrement();
+                    }
+                });
+        syllables = (int) sylCount.get();
+        polysyllables = (int) polySylCount.get();
     }
 
     public Integer getCharacters() {
@@ -55,6 +69,14 @@ public class TextStats {
 
     public Integer getPolysyllables() {
         return polysyllables;
+    }
+
+    public String[] getTokens() {
+        return tokens;
+    }
+
+    public void setTokens(String[] tokens) {
+        this.tokens = tokens;
     }
 
     public String getText() {
