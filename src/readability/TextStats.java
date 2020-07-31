@@ -35,7 +35,7 @@ public class TextStats {
     }
 
     private void countSyllables() {
-        String regex = "(?!e\\b)([yaeiou]+|(\\b[^\\dyaeiou\\s]+\\b)|\\b[b-df-hj-np-tv-z]+e\\b)";
+        String regex = "(?!e\\b)([yaeiou]+|\\b[b-df-hj-np-tv-z]+e\\b)";
         Pattern pattern = Pattern.compile(regex, Pattern.CASE_INSENSITIVE);
         AtomicLong sylCount = new AtomicLong();
         AtomicLong polySylCount = new AtomicLong();
